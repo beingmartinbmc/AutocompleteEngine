@@ -9,7 +9,13 @@ I've also added the functionality to choose a file of your own.
 
 To run this just download the jar file and choose the correct-word file.
 
-file must be in txt format.
+File must be in txt format.
 
+To use this:
 
-This could be extended by searching in DataBase.
+in the Service class
+
+```
+  String[] words = 'your words';
+  buildTrie(words)
+```
