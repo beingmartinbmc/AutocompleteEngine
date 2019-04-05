@@ -8,6 +8,7 @@ I've also added the functionality to choose a file of your own.
 
 
 To run this just download the jar file and choose the correct-word file.
+word files are present in src/resources
 
 File must be in txt format.
 
