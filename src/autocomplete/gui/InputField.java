@@ -98,12 +98,13 @@ public class InputField {
         boolean isDeleteKey = e.getKeyChar() == KeyEvent.VK_BACK_SPACE
                                 ||
                               e.getKeyChar() == KeyEvent.VK_DELETE;
+        boolean isSpaceKey = e.getKeyChar() == KeyEvent.VK_SPACE;
         if(isAlphanumeric || isEnterKey || isDeleteKey){
             if(isEnterKey){
                 charCount = textField.getText().length();
                 textField.requestFocus();
             }
-            else if(isDeleteKey){
+            else if(isDeleteKey || isSpaceKey){
                 if(charCount > 0)
                     charCount -= 1;
             }

@@ -1,9 +1,12 @@
 package autocomplete.implementation;
 
+import autocomplete.Author;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Author(name = "Ankit Sharma")
 public class Dictionary implements Trie {
     private final TrieNode root;
 
@@ -45,11 +48,11 @@ public class Dictionary implements Trie {
     private List<String> traverse(TrieNode node, String word, List<String> output){
         if(node.isEndOfWord())
             output.add(word);
-
         for(Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet())
             traverse(entry.getValue(), word + entry.getKey(), output);
         return output;
     }
+
 
     @Override
     public List<String> startsWith(String word) {

@@ -7,18 +7,20 @@ import java.awt.*;
 import java.io.File;
 
 public class View extends JFrame {
+    private GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
     private JTextField textField;
     private JList<String> list;
     private TrieService service;
     private JPanel panel;
 
     public View(String title, TrieService service){
+        g.getAllFonts();
         this.service = service;
         setTitle("Autocomplete Engine");
         setLayout(null);
-        setSize(550, 450);
+        setSize(550, 550);
         panel = new JPanel();
-        panel.setSize(560, 450);
+        panel.setSize(550, 550);
         panel.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -44,16 +46,14 @@ public class View extends JFrame {
     }
 
     private void addTextField() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.getAllFonts();
-        Font font = new Font("Jokerman", Font.PLAIN, 20);
+        Font font = new Font("Times New Roman", Font.PLAIN, 24);
         textField = new JTextField();
-        textField.setFont(new Font("Jokerman", Font.PLAIN, 20));
-        JLabel label = new JLabel("Enter stuff");
+        textField.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel label = new JLabel("Enter");
         label.setForeground(new Color(245,245,245));
         label.setFont(font);
-        label.setBounds(30, 20, 100, 40);
-        textField.setBounds(150, 20, 300, 40);
+        label.setBounds(30, 20, 150, 40);
+        textField.setBounds(120, 20, 360, 40);
         textField.setBackground(new Color(240,255,240));
         panel.add(textField);
         panel.add(label);
@@ -61,12 +61,13 @@ public class View extends JFrame {
 
     private void addListField() {
         list = new JList<>();
+        list.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
         panel.add(list, BorderLayout.CENTER);
 
     }
     private void addScrollPane() {
         JScrollPane scrollPane = new JScrollPane(list);
-        scrollPane.setBounds(80, 90, 400, 300);
+        scrollPane.setBounds(80, 90, 400, 400);
         scrollPane.setBackground(new Color(240,255,255));
         panel.add(scrollPane, BorderLayout.CENTER);
     }
