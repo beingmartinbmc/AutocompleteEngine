@@ -15,8 +15,8 @@ public class View extends JFrame {
 
     public View(String title, TrieService service){
         g.getAllFonts();
+        setTitle(title);
         this.service = service;
-        setTitle("Autocomplete Engine");
         setLayout(null);
         setSize(550, 550);
         panel = new JPanel();

@@ -10,9 +10,11 @@ public class Service implements TrieService {
 
     private Trie trie;
     private Dictionary dictionary = new Dictionary();
+    private int sizeOfWords;
 
     @Override
     public void buildTrie(String[] words) {
+        sizeOfWords = words.length;
         Arrays.stream(words).forEach(dictionary::insert);
     }
 
@@ -29,5 +31,9 @@ public class Service implements TrieService {
     @Override
     public Trie getTrie() {
         return this.trie;
+    }
+
+    public int getSizeOfWords(){
+        return sizeOfWords;
     }
 }
