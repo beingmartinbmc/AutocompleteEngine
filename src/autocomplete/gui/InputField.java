@@ -5,7 +5,7 @@ import autocomplete.service.TrieService;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class InputField {
@@ -74,16 +74,16 @@ public class InputField {
         String prefix = textField.getText().substring(0, charCount);
         List<String> suggestedWords = service.prefixSearch(prefix.toLowerCase());
         if(!isSorted(suggestedWords))
-            Collections.sort(suggestedWords);
+            suggestedWords.sort(Comparator.naturalOrder());
         DefaultListModel<String> model = new DefaultListModel<>();
         list.setModel(model);
         suggestedWords.forEach(model::addElement);
         int fieldLength = textField.getDocument().getLength();
         if (fieldLength > MIN_CHAR_INPUT) {
-            String suggestedFirstWord = suggestedWords.get(0);
-            textField.setText(suggestedFirstWord);
+            String firstWord = suggestedWords.get(0);
+            textField.setText(firstWord);
             textField.setCaretPosition(charCount);
-            textField.select(charCount, suggestedFirstWord.length());
+            textField.select(charCount, firstWord.length());
         }
     }
 

@@ -4,7 +4,6 @@ import autocomplete.Author;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Author(name = "Ankit Sharma")
 public class Dictionary implements Trie {
@@ -14,58 +13,41 @@ public class Dictionary implements Trie {
         root = new TrieNode();
     }
 
-    private TrieNode getRoot(){
-        return root;
-    }
-
     @Override
-    public void insert(String word){
-        TrieNode current = getRoot();
-        for(char c : word.toCharArray()){
-            TrieNode node = current.getChildren().get(c);
-            if(node == null){
-                node = new TrieNode();
-                current.getChildren().put(c, node);
-            }
-            current = node;
-        }
+    public void insert(String word) {
+        TrieNode current = root;
+        for(char c : word.toCharArray())
+            current = current.getChildren().computeIfAbsent(c, e->new TrieNode());
         current.setEndOfWord(true);
-        current.setCount(current.getCount() + 1);
     }
 
     @Override
     public boolean search(String word) {
-        TrieNode current = getRoot();
+        TrieNode current = root;
         for(char c : word.toCharArray()){
             TrieNode node = current.getChildren().get(c);
-            if(node == null)
-                return false;
+            if(node == null) return false;
             current = node;
         }
         return current.isEndOfWord();
     }
 
     private List<String> traverse(TrieNode node, String word, List<String> output){
-        if(node.isEndOfWord())
-            output.add(word);
-        for(Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet())
-            traverse(entry.getValue(), word + entry.getKey(), output);
+        if(node.isEndOfWord()) output.add(word);
+        node.getChildren().forEach((k,v)->traverse(v, word+k, output));
         return output;
     }
 
-
     @Override
     public List<String> startsWith(String word) {
-        TrieNode current = getRoot();
-        StringBuilder b = new StringBuilder();
-        for (char c : word.toCharArray()) {
+        StringBuilder result = new StringBuilder();
+        TrieNode current = root;
+        for(char c : word.toCharArray()){
             TrieNode node = current.getChildren().get(c);
-            if (node == null)
-                break;
-            b.append(c);
-            current = current.getChildren().get(c);
+            if(node == null) break;
+            result.append(c);
+            current = node;
         }
-        return traverse(current, b.toString(), new ArrayList<>());
+        return traverse(current, result.toString(), new ArrayList<>());
     }
-
 }

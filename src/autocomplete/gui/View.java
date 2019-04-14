@@ -4,6 +4,8 @@ import autocomplete.service.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 public class View extends JFrame {
@@ -22,6 +24,12 @@ public class View extends JFrame {
         panel = new JPanel();
         panel.setSize(550, 550);
         panel.setLayout(null);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                JOptionPane.showMessageDialog(new JFrame(),"Have a good day!");
+            }
+        });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         addComponents();
